@@ -34,6 +34,28 @@ export const getProductsLimit = createAsyncThunk(
     }
   );
 
+  export const getWomensProducts = createAsyncThunk(
+    "product/get-womens-products",
+    async (thunkAPI) => {
+      try {
+          return await productService.getWomensProducts();
+        } catch (error) {
+          return thunkAPI.rejectWithValue(error);
+        }
+    }
+  );
+
+  export const getMixedProducts = createAsyncThunk(
+    "product/get-mixed-products",
+    async (thunkAPI) => {
+      try {
+          return await productService.getMixedProducts();
+        } catch (error) {
+          return thunkAPI.rejectWithValue(error);
+        }
+    }
+  );
+
 export const resetState = createAction("RevertAll");
 
 const initialState = {
@@ -89,6 +111,36 @@ export const productSlice = createSlice({
         state.products = action.payload;
       })
       .addCase(getMensProducts.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.message = action.error;
+      })
+      .addCase(getWomensProducts.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getWomensProducts.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.products = action.payload;
+      })
+      .addCase(getWomensProducts.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.message = action.error;
+      })
+      .addCase(getMixedProducts.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getMixedProducts.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.products = action.payload;
+      })
+      .addCase(getMixedProducts.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.isSuccess = false;

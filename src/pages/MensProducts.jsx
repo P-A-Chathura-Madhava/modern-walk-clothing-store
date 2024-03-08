@@ -19,7 +19,7 @@ function MensProducts() {
       <div className="mt-4 grid grid-cols-4 gap-y-8">
         {productState && productState?.map((item, index)=>{
           return(
-            <ProductCard title={item?.title} image={item?.image} price={item?.price} description={item?.description} />
+            <ProductCard title={item?.title} image={item?.image} price={item?.price} description={item?.description} color="bg-[#2bd9af]" />
 
           )
         })}
