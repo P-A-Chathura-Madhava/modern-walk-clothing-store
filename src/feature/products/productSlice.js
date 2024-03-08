@@ -1,65 +1,43 @@
-import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import productService from "./productService";
 
-export const getProducts = createAsyncThunk(
-  "product/get-products",
+export const getMensProducts = createAsyncThunk(
+  "product/get-mens-products",
   async (thunkAPI) => {
     try {
-        return await productService.getProducts();
-      } catch (error) {
-        return thunkAPI.rejectWithValue(error);
-      }
+      return await productService.getMensProducts();
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
   }
 );
 
-export const getProductsLimit = createAsyncThunk(
-    "product/get-products-limit",
-    async (thunkAPI) => {
-      try {
-          return await productService.getProductLimited();
-        } catch (error) {
-          return thunkAPI.rejectWithValue(error);
-        }
+export const getWomensProducts = createAsyncThunk(
+  "product/get-womens-products",
+  async (thunkAPI) => {
+    try {
+      return await productService.getWomensProducts();
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
     }
-  );
+  }
+);
 
-  export const getMensProducts = createAsyncThunk(
-    "product/get-mens-products",
-    async (thunkAPI) => {
-      try {
-          return await productService.getMensProducts();
-        } catch (error) {
-          return thunkAPI.rejectWithValue(error);
-        }
+export const getMixedProducts = createAsyncThunk(
+  "product/get-mixed-products",
+  async (thunkAPI) => {
+    try {
+      return await productService.getMixedProducts();
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
     }
-  );
-
-  export const getWomensProducts = createAsyncThunk(
-    "product/get-womens-products",
-    async (thunkAPI) => {
-      try {
-          return await productService.getWomensProducts();
-        } catch (error) {
-          return thunkAPI.rejectWithValue(error);
-        }
-    }
-  );
-
-  export const getMixedProducts = createAsyncThunk(
-    "product/get-mixed-products",
-    async (thunkAPI) => {
-      try {
-          return await productService.getMixedProducts();
-        } catch (error) {
-          return thunkAPI.rejectWithValue(error);
-        }
-    }
-  );
-
-export const resetState = createAction("RevertAll");
+  }
+);
 
 const initialState = {
   products: [],
+  mensProducts: [],
+  womensProducts: [],
   isError: false,
   isLoading: false,
   isSuccess: false,
@@ -71,36 +49,6 @@ export const productSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getProducts.pending, (state) => {
-        state.isLoading = true;
-      })
-      .addCase(getProducts.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.isError = false;
-        state.isSuccess = true;
-        state.products = action.payload;
-      })
-      .addCase(getProducts.rejected, (state, action) => {
-        state.isLoading = false;
-        state.isError = true;
-        state.isSuccess = false;
-        state.message = action.error;
-      })
-      .addCase(getProductsLimit.pending, (state) => {
-        state.isLoading = true;
-      })
-      .addCase(getProductsLimit.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.isError = false;
-        state.isSuccess = true;
-        state.products = action.payload;
-      })
-      .addCase(getProductsLimit.rejected, (state, action) => {
-        state.isLoading = false;
-        state.isError = true;
-        state.isSuccess = false;
-        state.message = action.error;
-      })
       .addCase(getMensProducts.pending, (state) => {
         state.isLoading = true;
       })
@@ -108,7 +56,7 @@ export const productSlice = createSlice({
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
-        state.products = action.payload;
+        state.mensProducts = action.payload;
       })
       .addCase(getMensProducts.rejected, (state, action) => {
         state.isLoading = false;
@@ -123,7 +71,7 @@ export const productSlice = createSlice({
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
-        state.products = action.payload;
+        state.womensProducts = action.payload;
       })
       .addCase(getWomensProducts.rejected, (state, action) => {
         state.isLoading = false;
@@ -145,8 +93,7 @@ export const productSlice = createSlice({
         state.isError = true;
         state.isSuccess = false;
         state.message = action.error;
-      })
-      .addCase(resetState, () => initialState);
+      });
   },
 });
 export default productSlice.reducer;
