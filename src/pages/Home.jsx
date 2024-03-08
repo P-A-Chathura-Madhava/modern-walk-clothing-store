@@ -1,21 +1,21 @@
+import { Link } from "react-router-dom"
+import CategoriesCard from "../components/CategoriesCard"
 import ProductCard from "../components/ProductCard"
 
 function Home() {
   return (
-    <section className="container mx-auto mt-4">
+    <section className="container mx-auto mt-2">
         <h2 className="text-2xl font-semibold">Flash Sale</h2>
-        <div className="flex gap-14 mt-4 align-middle justify-around">
-            <div className="bg-red-200 w-[250px] h-[300px] rounded-2xl shadow-black shadow-3xl">
+        <div className="flex gap-14 mt-2 align-middle justify-around">
                 <ProductCard />
-            </div>
-            <div className="bg-red-300 w-[250px] h-[300px] rounded-2xl shadow-black shadow-3xl"></div>
-            <div className="bg-red-300 w-[250px] h-[300px] rounded-2xl shadow-black shadow-3xl"></div>
-            <div className="bg-red-300 w-[250px] h-[300px] rounded-2xl shadow-black shadow-3xl"></div>
+                <ProductCard />
+                <ProductCard />
+                <ProductCard />
         </div>
-        <h2 className="text-2xl font-semibold mt-4">Categories</h2>
-        <div className="flex gap-14 mt-4 align-middle justify-around">
-            <div className="bg-red-800 w-[650px] h-[250px] rounded-2xl shadow-black shadow-3xl"></div>
-            <div className="bg-red-300 w-[650px] h-[250px] rounded-2xl shadow-black shadow-3xl"></div>
+        <h2 className="text-2xl font-semibold mt-5">Categories</h2>
+        <div className="flex gap-14 mt-2 align-middle justify-around">
+                <Link to={"/mens-products"}><CategoriesCard clothType={"Men's Clothing"} color={"bg-[#2bd9af]"} /></Link>
+                <Link to={"/womens-products"}><CategoriesCard clothType={"Women's Clothing"} color={"bg-[#ff5d84]"} /></Link>
         </div>
     </section>
   )
